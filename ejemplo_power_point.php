@@ -1,4 +1,8 @@
 <?php
+/**
+* http://php.net/manual/es/book.zip.php
+*/
+
 // Defino un nombre único para el directorio de trabajo y lo creo
 $directorio = '/tmp/talento_temporales/' . hash('sha256', rand() ) . '/';
 mkdir( $directorio, 0777, true );
@@ -14,7 +18,9 @@ if ($res === TRUE) {
        // Obtengo el slide
        $zip->extractTo( $directorio, array( 'ppt/slides/slide1.xml' ) );
        $slide1 = file_get_contents( $directorio . 'ppt/slides/slide1.xml' );
-       $slide1 = str_replace( 'Nombre Completo: ', 'Nombre Completo: Juan David Botero', $slide1 );
+       //busco el texto que y remplazo
+       $slide1 = str_replace( 'Nombre Completo: ', 'Mi nombre completo', $slide1 );
+       //luego actualizo el zip con el nuevo contenido 
        $zip->addFromString('ppt/slides/slide1.xml', $slide1 );
        $zip->close();
 
